@@ -9,7 +9,7 @@ interface Props {
 }
 
 interface ReturnTypes {
-  cards: Card[]
+  filteredCards: Card[]
   query: string
   handleQuery: HandleQueryFn
   handleAffinitySelected: HandleAffinitySelectedFn
@@ -42,7 +42,7 @@ const useCards = ({ cards }: Props): ReturnTypes => {
   }, [cards, query, affinitySelected, cardTypeSelected])
 
   return {
-    cards: filteredCards,
+    filteredCards,
     query,
     handleQuery,
     handleAffinitySelected,

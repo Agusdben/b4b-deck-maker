@@ -8,11 +8,11 @@ import { type Card as CardType } from '@/types/cards'
 import { type GetStaticProps } from 'next'
 
 interface Props {
-  initialCards: CardType[]
+  cards: CardType[]
 }
 
-const Home: React.FC<Props> = ({ initialCards }): JSX.Element => {
-  const { cards, handleQuery, handleAffinitySelected, handleCardTypeSelected } = useCards({ cards: initialCards })
+const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
+  const { filteredCards, handleQuery, handleAffinitySelected, handleCardTypeSelected } = useCards({ cards })
 
   return (
     <AuthRoute>
@@ -27,7 +27,7 @@ const Home: React.FC<Props> = ({ initialCards }): JSX.Element => {
           </header>
           <article className='overflow-auto grid grid-cols-auto-fill gap-x-4 gap-y-8'>
             {
-              cards.map(c => <Card key={c.id} card={c} />)
+              filteredCards.map(c => <Card key={c.id} card={c} />)
             }
           </article>
         </section>
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const cards: CardType[] = await getCards()
   return {
     props: {
-      initialCards: cards
+      cards
     }
   }
 }
