@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import { Monda } from 'next/font/google'
+import { colors } from '@/styles/theme'
 
 const monda = Monda({ weight: '400', subsets: ['latin'] })
 
@@ -22,6 +23,23 @@ const AppLayout: React.FC<Props> = ({ children }) => {
       <main className='bg-black overflow-hidden flex flex-col items-center justify-center gap-4'>{children}</main>
       <footer>footer</footer>
     </div>
+    <style global jsx>{`
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: ${colors['black-800']};
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: ${colors.primary};
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          filter: brightness(75%);
+        }
+      `}</style>
   </>
   )
 }
