@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
-import { LOCAL_STORAGE_KEYS } from '../constants/localstorage'
+import { LOCAL_STORAGE_KEYS } from '../constants/localStorage'
 import { loginWithToken } from '../services/user'
 import { type User } from '../types/user'
 

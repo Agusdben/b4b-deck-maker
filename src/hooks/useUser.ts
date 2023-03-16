@@ -10,7 +10,7 @@ interface ReturnType {
   user: User | null
   authenticating: boolean
   login: ({ password, username }: LoginFormFields) => Promise<void>
-  checkTokenError: (error: string) => void
+  // checkTokenError: (error: string) => void
   logout: () => void
 }
 
@@ -30,18 +30,18 @@ const useUser = (): ReturnType => {
     setUser(null)
   }
 
-  const checkTokenError = (error: string): void => {
-    // if (Object.values(TOKEN_ERRORS).some(val => val === error)) {
-    //   logout()
-    // }
-  }
+  // const checkTokenError = (error: string): void => {
+  //   // if (Object.values(TOKEN_ERRORS).some(val => val === error)) {
+  //   //   logout()
+  //   // }
+  // }
 
   return {
     user,
     authenticating,
     login,
-    logout,
-    checkTokenError
+    logout
+    // checkTokenError
   }
 }
 
