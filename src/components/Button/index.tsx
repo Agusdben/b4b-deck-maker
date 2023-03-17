@@ -11,7 +11,7 @@ const Button: React.FC<Props> = ({ children, solid, ...props }) => {
     : 'hover:bg-primary'
   return (
     <button
-      className={`font-bold border-1 px-4 py-2 border-primary transition-colors ${className}`}
+      className={`font-bold w-full border-1 px-4 py-2 border-primary transition-colors ${className}`}
       {...props}
     >
       {children}

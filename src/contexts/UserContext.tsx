@@ -32,6 +32,7 @@ export const UserContextProvider: React.FC<Props> = ({ children }) => {
     }
     loginWithToken({ token }).then(user => {
       setUser(user)
+      window.localStorage.setItem(LOCAL_STORAGE_KEYS.TOKEN, user.token)
     }).catch(error => {
       console.error(error)
       setUser(null)

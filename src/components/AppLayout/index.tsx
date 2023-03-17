@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import { Monda } from 'next/font/google'
 import { colors } from '@/styles/theme'
+import AppHeader from '../AppHeader'
 
 const monda = Monda({ weight: '400', subsets: ['latin'] })
 
@@ -18,8 +19,8 @@ const AppLayout: React.FC<Props> = ({ children }) => {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
-    <div className={`${monda.className} h-screen w-screen overflow-hidden grid gap-4 grid-rows-layout grid-cols-1 text-white bg-black`}>
-      <header>header</header>
+    <div className={`${monda.className} h-screen w-screen px-4 overflow-y-auto overflow-x-hidden grid gap-4 grid-rows-layout grid-cols-1 text-white bg-black`}>
+      <AppHeader />
       <main className='bg-black overflow-hidden flex flex-col items-center justify-center gap-4'>{children}</main>
       <footer>footer</footer>
     </div>

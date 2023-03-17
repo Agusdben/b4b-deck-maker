@@ -5,3 +5,5 @@ export interface User {
 }
 
 export type UserToken = Pick<User, 'token'>
+export type UserId = Pick<User, 'id'>
+export type UserIdAndToken = Pick<User, 'id' | 'token'>

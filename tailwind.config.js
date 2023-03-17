@@ -20,6 +20,9 @@ module.exports = {
       },
       gridTemplateColumns: {
         'auto-fill': 'repeat(auto-fill, minmax(200px, 1fr))'
+      },
+      transitionProperty: {
+        right: 'right'
       }
     }
   },
