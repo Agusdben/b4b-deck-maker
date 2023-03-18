@@ -1,26 +1,30 @@
 import { MAX_CARDS } from '@/constants/decks'
 import { addCardToDeck, removeCardFromDeck } from '@/services/decksCard'
 import { type CardId, type Card } from '@/types/cards'
-import { type Deck } from '@/types/decks'
+import { type DeckTitle, type Deck } from '@/types/decks'
 import { useState } from 'react'
 import useUser from './useUser'
 import { toast } from 'react-toastify'
+import { updateTitle } from '@/services/decks'
 
 interface Props {
-  deck: Deck
+  initialDeck: Deck
   initialDeckCards: Card[]
 }
 
 interface ReturnTypes {
   deckCards: Card[]
   cardsInQueue: CardId[]
+  deck: Deck
   handleAddCardToDeck: (card: Card) => void
   handleRemoveCardFromDeck: (card: Card) => void
+  handleUpdateTitle: ({ title }: DeckTitle) => void
 }
 
-const useDeck = ({ deck, initialDeckCards }: Props): ReturnTypes => {
+const useDeck = ({ initialDeck, initialDeckCards }: Props): ReturnTypes => {
   const { user } = useUser()
   const [deckCards, setDeckCards] = useState(initialDeckCards)
+  const [deck, setDeck] = useState(initialDeck)
   const [cardsInQueue, setCardsInQueue] = useState<CardId[]>([])
 
   const removeCardFromQueue = (card: Card): void => {
@@ -83,11 +87,27 @@ const useDeck = ({ deck, initialDeckCards }: Props): ReturnTypes => {
       })
   }
 
+  const handleUpdateTitle = ({ title }: DeckTitle): void => {
+    if (user == null || title === '') return
+
+    updateTitle({ id: deck.id, title, token: user?.token })
+      .then(deck => {
+        setDeck(deck)
+        toast.success('Title updated')
+      })
+      .catch(error => {
+        console.error(error)
+        toast.error('Invalid title')
+      })
+  }
+
   return {
     deckCards,
     cardsInQueue,
+    deck,
     handleAddCardToDeck,
-    handleRemoveCardFromDeck
+    handleRemoveCardFromDeck,
+    handleUpdateTitle
   }
 }
 

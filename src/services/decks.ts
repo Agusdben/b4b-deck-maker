@@ -1,6 +1,6 @@
 import { type UserIdAndToken } from '../types/user'
 import { API_URL } from '../config/api'
-import { type GetOneDeckFn, type CreateNewDeckFn, type Deck } from '@/types/decks'
+import { type GetOneDeckFn, type CreateNewDeckFn, type Deck, type UpdateDeckFn } from '@/types/decks'
 import { type ApiError } from '@/types/api'
 
 const BASE_URL = `${API_URL}/decks`
@@ -61,6 +61,29 @@ export const createNewDeck: CreateNewDeckFn = async ({ title, token }) => {
       if (!res.ok) {
         const error: ApiError = await res.json()
         throw new Error(error.code)
+      }
+      const deck: Deck = await res.json()
+      return deck
+    })
+    .catch(error => {
+      throw new Error(error.message)
+    })
+}
+
+export const updateTitle: UpdateDeckFn = async ({ id, title, token }) => {
+  const URL = `${BASE_URL}/${id}`
+  return await fetch(URL, {
+    method: 'PUT',
+    body: JSON.stringify({ title }),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(async res => {
+      if (!res.ok) {
+        const error: ApiError = await res.json()
+        throw new Error(error.message)
       }
       const deck: Deck = await res.json()
       return deck

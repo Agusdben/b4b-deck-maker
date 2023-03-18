@@ -2,6 +2,7 @@ import AppLayout from '@/components/AppLayout'
 import AuthRoute from '@/components/AuthRoute'
 import Card from '@/components/Card'
 import DeckCards from '@/components/DeckCards'
+import DeckTitle from '@/components/DeckTitle'
 import FilterCards from '@/components/FilterCards'
 import useCards from '@/hooks/useCards'
 import useDeck from '@/hooks/useDeck'
@@ -15,13 +16,13 @@ import { type GetServerSideProps } from 'next'
 
 interface Props {
   cards: CardType[]
-  deck: Deck
+  propDeck: Deck
   propDeckCards: CardType[]
 }
 
-const DeckPage: React.FC<Props> = ({ cards, deck, propDeckCards }) => {
+const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
   const { filteredCards, handleQuery, handleAffinitySelected, handleCardTypeSelected } = useCards({ cards })
-  const { deckCards, handleAddCardToDeck, handleRemoveCardFromDeck, cardsInQueue } = useDeck({ deck, initialDeckCards: propDeckCards })
+  const { deck, deckCards, cardsInQueue, handleAddCardToDeck, handleRemoveCardFromDeck, handleUpdateTitle } = useDeck({ initialDeck: propDeck, initialDeckCards: propDeckCards })
 
   return (
     <AuthRoute>
@@ -44,7 +45,7 @@ const DeckPage: React.FC<Props> = ({ cards, deck, propDeckCards }) => {
                     <button
                       disabled={isInQueue}
                       onClick={() => { isAdded ? handleRemoveCardFromDeck(c) : handleAddCardToDeck(c) }}
-                      key={c.id} className={`border-2 max-w-[210px] m-auto text-left px-2 hover:border-gray rounded-md ${isAdded ? 'border-primary' : 'border-transparent'} `}>
+                      key={c.id} className={`border-2 h-fit max-w-[210px] mx-auto text-left px-2 hover:border-gray rounded-md ${isAdded ? 'border-primary' : 'border-transparent'} `}>
                       <Card card={c} />
                     </button>
                   )
@@ -53,7 +54,7 @@ const DeckPage: React.FC<Props> = ({ cards, deck, propDeckCards }) => {
             </div>
           </article>
           <aside className='h-full flex flex-col'>
-            <h3>{deck.title}</h3>
+            <DeckTitle onUpdateTitle={handleUpdateTitle} title={deck.title}/>
             <DeckCards cards={deckCards} onRemoveCard={handleRemoveCardFromDeck}/>
           </aside>
         </section>
@@ -98,7 +99,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       cards,
-      deck,
+      propDeck: deck,
       propDeckCards: deckCards
     }
   }

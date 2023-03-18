@@ -11,8 +11,9 @@ export interface Deck {
 export type DeckTitle = Pick<Deck, 'title'>
 export type DeckId = Pick<Deck, 'id'>
 
-export interface CreateNewDeck extends DeckTitle, UserToken {}
+export interface DeckTitleAndToken extends DeckTitle, UserToken {}
 export interface DeckIdAndToken extends DeckId, UserToken {}
+export interface DeckIdTitleAndToken extends DeckId, DeckTitle, UserToken {}
 
 export interface AddAndRemoveCardDeck {
   cardId: string
@@ -20,6 +21,7 @@ export interface AddAndRemoveCardDeck {
   token: string
 }
 
-export type CreateNewDeckFn = ({ title, token }: CreateNewDeck) => Promise<Deck>
+export type CreateNewDeckFn = ({ title, token }: DeckTitleAndToken) => Promise<Deck>
 export type GetCardsByDeckIdFn = ({ id, token }: DeckIdAndToken) => Promise<Card[]>
 export type GetOneDeckFn = ({ id, token }: DeckIdAndToken) => Promise<Deck>
+export type UpdateDeckFn = ({ id, title, token }: DeckIdTitleAndToken) => Promise<Deck>
