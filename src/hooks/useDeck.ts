@@ -4,6 +4,7 @@ import { type CardId, type Card } from '@/types/cards'
 import { type Deck } from '@/types/decks'
 import { useState } from 'react'
 import useUser from './useUser'
+import { toast } from 'react-toastify'
 
 interface Props {
   deck: Deck
@@ -37,7 +38,7 @@ const useDeck = ({ deck, initialDeckCards }: Props): ReturnTypes => {
     if (user == null) return
 
     if (deckCards.length === MAX_CARDS) {
-      // add feedback
+      toast.error('Deck is full')
       return
     }
 
@@ -48,11 +49,9 @@ const useDeck = ({ deck, initialDeckCards }: Props): ReturnTypes => {
     })
 
     addCardToDeck({ deckId: deck.id, cardId: card.id, token: user.token })
-      .then(() => {
-        // add message when is added
-      })
       .catch(error => {
         console.error(error.message)
+        toast.error('Failed to add card')
         setDeckCards(currentCards => {
           return currentCards.filter(c => c.id !== card.id)
         })
@@ -72,11 +71,9 @@ const useDeck = ({ deck, initialDeckCards }: Props): ReturnTypes => {
     })
 
     removeCardFromDeck({ deckId: deck.id, cardId: card.id, token: user.token })
-      .then((deletedCard) => {
-        // add message
-      })
       .catch(error => {
         console.error(error.message)
+        toast.error('Failed to remove card')
         setDeckCards(currentCards => {
           return [...currentCards, card]
         })

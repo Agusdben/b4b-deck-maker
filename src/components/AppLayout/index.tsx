@@ -3,6 +3,8 @@ import React from 'react'
 import { Monda } from 'next/font/google'
 import { colors } from '@/styles/theme'
 import AppHeader from '../AppHeader'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const monda = Monda({ weight: '400', subsets: ['latin'] })
 
@@ -24,6 +26,19 @@ const AppLayout: React.FC<Props> = ({ children }) => {
       <main className='bg-black overflow-hidden flex flex-col items-center justify-center gap-4'>{children}</main>
       <footer>footer</footer>
     </div>
+    <ToastContainer
+      position="top-center"
+      autoClose={2000}
+      limit={3}
+      hideProgressBar={true}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable={false}
+      pauseOnHover={false}
+      theme="dark"
+    />
     <style global jsx>{`
         ::-webkit-scrollbar {
           width: 8px;
