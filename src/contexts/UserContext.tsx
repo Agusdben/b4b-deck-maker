@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState } from 'react'
-import { LOCAL_STORAGE_KEYS } from '../constants/localStorage'
+import { COOKIES_KEYS } from '../constants/cookiesKeys'
 import { loginWithToken } from '../services/user'
 import { type User } from '../types/user'
+import Cookies from 'js-cookie'
 
 interface Context {
   user: User | null
@@ -24,15 +25,15 @@ export const UserContextProvider: React.FC<Props> = ({ children }) => {
   const [authenticating, setAuthenticating] = useState(true)
 
   useEffect(() => {
-    const token = window.localStorage.getItem(LOCAL_STORAGE_KEYS.TOKEN)
-    if (token === null) {
+    const token = Cookies.get(COOKIES_KEYS.TOKEN)
+    if (token === undefined) {
       setUser(null)
       setAuthenticating(false)
       return
     }
     loginWithToken({ token }).then(user => {
       setUser(user)
-      window.localStorage.setItem(LOCAL_STORAGE_KEYS.TOKEN, user.token)
+      Cookies.set(COOKIES_KEYS.TOKEN, user.token, { expires: 30 })
     }).catch(error => {
       console.error(error)
       setUser(null)

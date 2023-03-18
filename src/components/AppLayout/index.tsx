@@ -27,6 +27,7 @@ const AppLayout: React.FC<Props> = ({ children }) => {
     <style global jsx>{`
         ::-webkit-scrollbar {
           width: 8px;
+          height: 4px;
         }
 
         ::-webkit-scrollbar-track {

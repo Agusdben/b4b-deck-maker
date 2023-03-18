@@ -1,21 +1,21 @@
-import useUser from '@/hooks/useUser'
-import { colors } from '@/styles/theme'
-import { useState } from 'react'
-import AppMenu from '../AppMenu'
-import BarsIcon from '../Icons/BarsIcon'
+// import useUser from '@/hooks/useUser'
+// import { colors } from '@/styles/theme'
+// import { useState } from 'react'
+// import AppMenu from '../AppMenu'
+// import BarsIcon from '../Icons/BarsIcon'
 
 const AppHeader: React.FC = () => {
-  const { user } = useUser()
-  const [toggle, setToggle] = useState(false)
+  // const { user } = useUser()
+  // const [toggle, setToggle] = useState(false)
 
-  const handleToggle = (): void => {
-    setToggle(!toggle)
-  }
+  // const handleToggle = (): void => {
+  //   setToggle(!toggle)
+  // }
 
   return (
     <header className='flex justify-between py-2 relative'>
       <h1 className='p-2'>B4B</h1>
-      {
+      {/* {
         user !== null && (
           <>
             <button onClick={handleToggle} className='flex p-2 gap-1 items-center hover:brightness-50 text-2xl'>
@@ -26,7 +26,7 @@ const AppHeader: React.FC = () => {
             </nav>
           </>
         )
-      }
+      } */}
     </header>
   )
 }

@@ -1,9 +1,10 @@
 import { useContext } from 'react'
-import { LOCAL_STORAGE_KEYS } from '../constants/localStorage'
+import { COOKIES_KEYS } from '../constants/cookiesKeys'
 import { UserContext } from '../contexts/UserContext'
 import { loginWithUsernameAndPassword } from '../services/user'
 import { type LoginFormFields } from '../types/login'
 import { type User } from '../types/user'
+import Cookies from 'js-cookie'
 
 interface ReturnType {
   user: User | null
@@ -19,12 +20,12 @@ const useUser = (): ReturnType => {
     await loginWithUsernameAndPassword({ password, username })
       .then(user => {
         setUser(user)
-        window.localStorage.setItem(LOCAL_STORAGE_KEYS.TOKEN, user.token)
+        Cookies.set(COOKIES_KEYS.TOKEN, user.token)
       })
   }
 
   const logout = (): void => {
-    window.localStorage.removeItem(LOCAL_STORAGE_KEYS.TOKEN)
+    Cookies.remove(COOKIES_KEYS.TOKEN)
     setUser(null)
   }
 

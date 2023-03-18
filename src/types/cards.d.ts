@@ -9,4 +9,5 @@ export interface Card {
 }
 
 export type CardTitle = Pick<Card, 'title'>
+export type CardId = Pick<Card, 'id'>
 export type HandleQueryFn = ({ title }: CardTitle) => void

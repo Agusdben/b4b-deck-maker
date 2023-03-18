@@ -17,7 +17,7 @@ const Card: React.FC<Props> = ({ card }) => {
       </div>
       <div className='relative'>
         <Image src={card.img} alt={`Back 4 blood card ${card.title}`} width={330} height={500}/>
-        <p className='absolute bottom-0 p-2 text-gray font-bold'>{card.description}</p>
+        <p className='absolute bottom-0 p-2 text-gray font-bold text-left'>{card.description}</p>
       </div>
     </div>
   )

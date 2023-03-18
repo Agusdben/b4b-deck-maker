@@ -17,7 +17,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
   const { filteredCards, handleQuery, handleAffinitySelected, handleCardTypeSelected } = useCards({ cards })
-  const { decks, loading } = useDecks()
+  const { decks, loading, handleCreateNewDeck } = useDecks()
 
   return (
     <AuthRoute>
@@ -49,7 +49,7 @@ const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
                   <>
                   {
                     decks.map(d => (
-                      <Link href={`/deck/${d.id}`} key={d.id} className='w-full text-center border-1'>
+                      <Link href={`/decks/${d.id}`} key={d.id} className='w-full text-center border-1'>
                         <p>{d.title}</p>
                         <p>{d.total_cards}/{MAX_CARDS}</p>
                       </Link>
@@ -61,7 +61,7 @@ const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
 
             </div>
             <footer className='w-full'>
-              <Button>New deck</Button>
+              <Button type='button' onClick={handleCreateNewDeck}>New deck</Button>
             </footer>
           </aside>
         </section>
