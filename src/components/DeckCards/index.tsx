@@ -31,17 +31,17 @@ const DeckCards: React.FC<Props> = ({ cards, onRemoveCard }) => {
           return (
             <button
               onClick={c !== null ? () => { onRemoveCard(c) } : () => {}} key={(c != null) ? c.id : index}
-              className={'relative text-gray font-bold border-2 border-transparent hover:border-gray'}
+              className={'relative min-w-[230px] text-gray font-bold border-2 border-transparent hover:border-gray'}
             >
               <div className='relative z-10 flex items-center gap-2 bg-black/60'>
                 <span>{index + 1}</span>
                 {
                   c !== null && <Image src={c.affinity_img} alt={`Affinity ${c.affinity}`} width={16} height={16} className=''/>
                 }
-                <p className='w-max min-w-[200px] text-white text-left'>{(c != null) ? c.title : 'Empty'}</p>
+                <p className='w-max text-white text-left text-sm'>{(c != null) ? c.title : 'Empty'}</p>
               </div>
               {
-                c !== null && <Image src={c.img} alt={`Card ${c.title}`} fill className='object-cover'/>
+                c !== null && <Image src={c.img} alt={`Card ${c.title}`} fill sizes='100%' className='object-cover'/>
               }
             </button>
           )

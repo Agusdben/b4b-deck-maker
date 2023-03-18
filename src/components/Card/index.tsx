@@ -8,7 +8,7 @@ interface Props {
 const Card: React.FC<Props> = ({ card }) => {
   return (
     <div className='w-full max-w-[200px] mx-auto'>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-start justify-between py-1'>
         <div>
           <h3>{card.title}</h3>
           <p className='text-gray'>{card.type}</p>
