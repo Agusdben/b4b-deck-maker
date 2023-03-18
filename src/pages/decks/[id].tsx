@@ -21,7 +21,7 @@ interface Props {
 
 const DeckPage: React.FC<Props> = ({ cards, deck, propDeckCards }) => {
   const { filteredCards, handleQuery, handleAffinitySelected, handleCardTypeSelected } = useCards({ cards })
-  const { deckCards, handleAddCardToDeck, handleRemoveCardFromDeck, isLoading } = useDeck({ deck, initialDeckCards: propDeckCards })
+  const { deckCards, handleAddCardToDeck, handleRemoveCardFromDeck, cardsInQueue } = useDeck({ deck, initialDeckCards: propDeckCards })
 
   return (
     <AuthRoute>
@@ -39,9 +39,10 @@ const DeckPage: React.FC<Props> = ({ cards, deck, propDeckCards }) => {
               {
                 filteredCards.map(c => {
                   const isAdded = deckCards.some(dc => dc.id === c.id)
+                  const isInQueue = cardsInQueue.some(cardQueue => cardQueue.id === c.id)
                   return (
                     <button
-                      disabled={isLoading}
+                      disabled={isInQueue}
                       onClick={() => { isAdded ? handleRemoveCardFromDeck(c) : handleAddCardToDeck(c) }}
                       key={c.id} className={`border-2 max-w-[210px] m-auto text-left px-2 hover:border-gray rounded-md ${isAdded ? 'border-primary' : 'border-transparent'} `}>
                       <Card card={c} />

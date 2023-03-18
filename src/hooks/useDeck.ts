@@ -1,6 +1,6 @@
 import { MAX_CARDS } from '@/constants/decks'
 import { addCardToDeck, removeCardFromDeck } from '@/services/decksCard'
-import { type Card } from '@/types/cards'
+import { type CardId, type Card } from '@/types/cards'
 import { type Deck } from '@/types/decks'
 import { useState } from 'react'
 import useUser from './useUser'
@@ -12,7 +12,7 @@ interface Props {
 
 interface ReturnTypes {
   deckCards: Card[]
-  isLoading: boolean
+  cardsInQueue: CardId[]
   handleAddCardToDeck: (card: Card) => void
   handleRemoveCardFromDeck: (card: Card) => void
 }
@@ -20,7 +20,18 @@ interface ReturnTypes {
 const useDeck = ({ deck, initialDeckCards }: Props): ReturnTypes => {
   const { user } = useUser()
   const [deckCards, setDeckCards] = useState(initialDeckCards)
-  const [isLoading, setIsLoading] = useState(false)
+  const [cardsInQueue, setCardsInQueue] = useState<CardId[]>([])
+
+  const removeCardFromQueue = (card: Card): void => {
+    setCardsInQueue(actual => {
+      return actual.filter(a => a.id !== card.id)
+    })
+  }
+  const addCardToQueue = (card: Card): void => {
+    setCardsInQueue(actual => {
+      return [...actual, { id: card.id }]
+    })
+  }
 
   const handleAddCardToDeck = (card: Card): void => {
     if (user == null) return
@@ -30,7 +41,7 @@ const useDeck = ({ deck, initialDeckCards }: Props): ReturnTypes => {
       return
     }
 
-    setIsLoading(true)
+    addCardToQueue(card)
 
     setDeckCards(currentCards => {
       return [...currentCards, card]
@@ -47,14 +58,14 @@ const useDeck = ({ deck, initialDeckCards }: Props): ReturnTypes => {
         })
       })
       .finally(() => {
-        setIsLoading(false)
+        removeCardFromQueue(card)
       })
   }
 
   const handleRemoveCardFromDeck = (card: Card): void => {
     if (user == null) return
 
-    setIsLoading(true)
+    addCardToQueue(card)
 
     setDeckCards(currentCards => {
       return currentCards.filter(c => c.id !== card.id)
@@ -71,13 +82,13 @@ const useDeck = ({ deck, initialDeckCards }: Props): ReturnTypes => {
         })
       })
       .finally(() => {
-        setIsLoading(false)
+        removeCardFromQueue(card)
       })
   }
 
   return {
     deckCards,
-    isLoading,
+    cardsInQueue,
     handleAddCardToDeck,
     handleRemoveCardFromDeck
   }
