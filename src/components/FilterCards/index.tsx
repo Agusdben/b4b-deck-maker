@@ -32,7 +32,7 @@ const FilterCards: React.FC<Props> = ({ onQueryChange, onAffinityChange, onCardT
   }
 
   return (
-    <div className='flex flex-col gap-2 items-center md:items-start lg:flex-row'>
+    <div className='flex flex-col gap-2 items-center md:items-start md:flex-row'>
       <input
         className='bg-transparent self-stretch border-1 border-primary w-full px-4 py-2 outline-none'
         placeholder="Search card here"
