@@ -22,6 +22,8 @@ export interface AddAndRemoveCardDeck {
 }
 
 export type CreateNewDeckFn = ({ title, token }: DeckTitleAndToken) => Promise<Deck>
+export type DeleteOneDeckFn = ({ id, token }: DeckIdAndToken) => Promise<void>
+
 export type GetCardsByDeckIdFn = ({ id, token }: DeckIdAndToken) => Promise<Card[]>
 export type GetOneDeckFn = ({ id, token }: DeckIdAndToken) => Promise<Deck>
 export type UpdateDeckFn = ({ id, title, token }: DeckIdTitleAndToken) => Promise<Deck>

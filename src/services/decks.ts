@@ -1,6 +1,6 @@
 import { type UserIdAndToken } from '../types/user'
 import { API_URL } from '../config/api'
-import { type GetOneDeckFn, type CreateNewDeckFn, type Deck, type UpdateDeckFn } from '@/types/decks'
+import { type GetOneDeckFn, type CreateNewDeckFn, type Deck, type UpdateDeckFn, type DeleteOneDeckFn } from '@/types/decks'
 import { type ApiError } from '@/types/api'
 
 const BASE_URL = `${API_URL}/decks`
@@ -64,6 +64,26 @@ export const createNewDeck: CreateNewDeckFn = async ({ title, token }) => {
       }
       const deck: Deck = await res.json()
       return deck
+    })
+    .catch(error => {
+      throw new Error(error.message)
+    })
+}
+
+export const deleteOneDeck: DeleteOneDeckFn = async ({ id, token }) => {
+  const URL = `${BASE_URL}/${id}`
+  console.log(URL)
+  await fetch(URL, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(async res => {
+      if (!res.ok) {
+        const error: ApiError = await res.json()
+        throw new Error(error.message)
+      }
     })
     .catch(error => {
       throw new Error(error.message)

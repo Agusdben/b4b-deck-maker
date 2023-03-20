@@ -2,14 +2,13 @@ import AppLayout from '@/components/AppLayout'
 import AuthRoute from '@/components/AuthRoute'
 import Button from '@/components/Button'
 import Card from '@/components/Card'
+import Deck from '@/components/Deck'
 import FilterCards from '@/components/FilterCards'
-import { MAX_CARDS } from '@/constants/decks'
 import useCards from '@/hooks/useCards'
 import useDecks from '@/hooks/useDecks'
 import { getCards } from '@/services/cards'
 import { type Card as CardType } from '@/types/cards'
 import { type GetStaticProps } from 'next'
-import Link from 'next/link'
 
 interface Props {
   cards: CardType[]
@@ -17,7 +16,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
   const { filteredCards, handleQuery, handleAffinitySelected, handleCardTypeSelected } = useCards({ cards })
-  const { decks, loading, handleCreateNewDeck } = useDecks()
+  const { decks, loading, handleCreateNewDeck, handleDeleteDeck } = useDecks()
 
   return (
     <AuthRoute>
@@ -34,34 +33,26 @@ const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
             <div className='overflow-auto grid grid-cols-auto-fill gap-x-4 gap-y-8'>
               {
                 filteredCards.map(c => <Card key={c.id} card={c} />)
-              }
+              }0
             </div>
           </article>
-          <aside className='w-full h-full flex flex-col gap-4 md:max-w-[200px]'>
-            <h3 className='text-2xl text-center'>My decks</h3>
-            <div className={`w-full flex-1 overflow-auto px-4 flex flex-col gap-4 bg-black-800 ${loading ? 'animate-pulse' : 'bg-transparent'}`}>
+          <aside className='w-full h-full flex flex-col gap-4 md:max-w-[230px]'>
+            <h3 className='text-xl text-center bg-primary px-4 py-2 font-bold'>My decks</h3>
+            <div className={`w-full flex-1 overflow-auto flex flex-col gap-4 bg-black-800 p-2 ${loading ? 'animate-pulse' : 'bg-transparent'}`}>
               {
                 decks.length === 0 && !loading
-                  ? (
-                  <p className='m-auto text-center'>You don&apos;t have any deck</p>
-                    )
+                  ? <p className='m-auto text-center'>You don&apos;t have any deck</p>
                   : (
                   <>
                   {
-                    decks.map(d => (
-                      <Link href={`/decks/${d.id}`} key={d.id} className='w-full text-center border-1'>
-                        <p>{d.title}</p>
-                        <p>{d.total_cards}/{MAX_CARDS}</p>
-                      </Link>
-                    ))
+                    decks.map(d => <Deck key={d.id} deck={d} onDelete={handleDeleteDeck}/>)
                   }
                   </>
                     )
               }
-
             </div>
             <footer className='w-full'>
-              <Button type='button' onClick={handleCreateNewDeck}>New deck</Button>
+              <Button solid type='button' onClick={handleCreateNewDeck}>New deck</Button>
             </footer>
           </aside>
         </section>

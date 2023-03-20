@@ -1,13 +1,15 @@
-import { createNewDeck, getDecksByUserId } from '@/services/decks'
-import { type Deck } from '@/types/decks'
+import { createNewDeck, deleteOneDeck, getDecksByUserId } from '@/services/decks'
+import { type DeckId, type Deck } from '@/types/decks'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import useUser from './useUser'
 
 interface ReturnTypes {
   decks: Deck[]
   loading: boolean
   handleCreateNewDeck: () => void
+  handleDeleteDeck: ({ id }: DeckId) => void
 }
 
 const useDecks = (): ReturnTypes => {
@@ -44,10 +46,29 @@ const useDecks = (): ReturnTypes => {
       })
   }
 
+  const handleDeleteDeck = ({ id }: DeckId): void => {
+    if (user == null) return
+
+    const decksBeforeDelete = [...decks]
+
+    setDecks(currentDecks => currentDecks.filter(d => d.id !== id))
+
+    deleteOneDeck({ id, token: user.token })
+      .then(() => {
+        toast.success('Deck removed')
+      })
+      .catch((error) => {
+        console.error(error.message)
+        toast.error('Failed to delete deck')
+        setDecks(decksBeforeDelete)
+      })
+  }
+
   return {
     decks,
     loading,
-    handleCreateNewDeck
+    handleCreateNewDeck,
+    handleDeleteDeck
   }
 }
 

@@ -6,6 +6,7 @@ export default function Document (): JSX.Element {
       <Head />
       <body>
         <Main />
+        <div id='modal'/>
         <NextScript />
       </body>
     </Html>
