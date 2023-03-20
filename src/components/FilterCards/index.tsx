@@ -3,6 +3,7 @@ import { type HandleAffinitySelectedFn, type Affinities } from '@/types/affiniti
 import { type HandleQueryFn } from '@/types/cards'
 import { type CardTypes, type HandleCardTypesFn } from '@/types/types'
 import { useState } from 'react'
+import Select from '../Select'
 
 interface Props {
   onQueryChange: HandleQueryFn
@@ -31,24 +32,26 @@ const FilterCards: React.FC<Props> = ({ onQueryChange, onAffinityChange, onCardT
   }
 
   return (
-    <div>
+    <div className='flex flex-col gap-2 items-center md:items-start lg:flex-row'>
       <input
-        className='bg-transparent border-1 border-primary w-full px-4 py-2 outline-none'
+        className='bg-transparent self-stretch border-1 border-primary w-full px-4 py-2 outline-none'
         placeholder="Search card here"
         value={searchValue}
         onChange={handleOnchange}
       />
-      <div className='text-black'>
-        <select value={affinity} onChange={(evt) => { handleAffinity(evt.target.value as Affinities) }}>
-          {
-            Object.values(AFFINITIES_FILTER).map(affinity => <option key={affinity} value={affinity}>{affinity}</option>)
-          }
-        </select>
-        <select value={type} onChange={(evt) => { handleType(evt.target.value as CardTypes) }}>
-          {
-            Object.values(TYPES_FILTERS).map(type => <option key={type} value={type}>{type}</option>)
-          }
-        </select>
+      <div className='text-black flex gap-4'>
+        <Select
+          label='Affinity'
+          value={affinity}
+          onChange={(evt) => { handleAffinity(evt.target.value as Affinities) }}
+          values={Object.values(AFFINITIES_FILTER)}
+        />
+        <Select
+          label='Type'
+          value={type}
+          onChange={(evt) => { handleType(evt.target.value as CardTypes) }}
+          values={Object.values(TYPES_FILTERS)}
+        />
       </div>
     </div>
   )
