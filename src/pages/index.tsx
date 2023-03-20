@@ -31,9 +31,10 @@ const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
               />
             </header>
             <div className='overflow-auto grid grid-cols-auto-fill gap-x-4 gap-y-8'>
+              {filteredCards.length === 0 && <p className=''>No cards found</p>}
               {
                 filteredCards.map(c => <Card key={c.id} card={c} />)
-              }0
+              }
             </div>
           </article>
           <aside className='w-full h-full flex flex-col gap-4 md:max-w-[230px]'>

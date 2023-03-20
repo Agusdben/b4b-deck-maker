@@ -37,6 +37,7 @@ const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
               />
             </header>
             <div className='overflow-auto flex-1 grid grid-cols-auto-fill gap-x-4 gap-y-8'>
+              {filteredCards.length === 0 && <p className=''>No cards found</p>}
               {
                 filteredCards.map(c => {
                   const isAdded = deckCards.some(dc => dc.id === c.id)
