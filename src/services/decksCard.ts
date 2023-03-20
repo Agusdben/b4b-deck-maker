@@ -52,7 +52,6 @@ export const removeCardFromDeck = async ({ cardId, deckId, token }: AddAndRemove
   const URL = `${BASE_URL}/${deckId}/${cardId}`
   return await fetch(URL, {
     method: 'DELETE',
-    body: JSON.stringify({ deckId, cardId }),
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
