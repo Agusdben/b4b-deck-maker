@@ -54,7 +54,7 @@ const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
               }
             </div>
           </article>
-          <aside className='h-full flex flex-col'>
+          <aside className='flex md:h-full flex-col mt-auto'>
             <DeckTitle onUpdateTitle={handleUpdateTitle} title={deck.title}/>
             <DeckCards cards={deckCards} onRemoveCard={handleRemoveCardFromDeck}/>
           </aside>

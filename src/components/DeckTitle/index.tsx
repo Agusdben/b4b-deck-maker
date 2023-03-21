@@ -1,6 +1,7 @@
 import { colors } from '@/styles/theme'
 import { type DeckTitle as DeckTitleType } from '@/types/decks'
 import { type FormEvent, useState } from 'react'
+import NoteIcon from '../Icons/NoteIcon'
 import PenToSquareIcon from '../Icons/PenToSquareIcon'
 
 interface Props extends DeckTitleType {
@@ -32,11 +33,12 @@ const DeckTitle: React.FC<Props> = ({ title, onUpdateTitle }) => {
   }
 
   return (
-    <div>
+    <div className='border-1 p-2 gap-2 border-primary flex  items-center '>
+      <NoteIcon fill={colors.primary}/>
       {
         isEditing
           ? (
-          <form className='border-1 border-primary w-full flex justify-between p-2 ' onSubmit={handleOnSubmitTitle}>
+          <form className='w-full flex justify-between ' onSubmit={handleOnSubmitTitle}>
             <input
               className='bg-transparent outline-none'
               type="text"
@@ -54,7 +56,7 @@ const DeckTitle: React.FC<Props> = ({ title, onUpdateTitle }) => {
             )
           : (
             <button
-            className='p-2 border-1 border-transparent hover:border-primary w-full text-left flex justify-between items-center'
+            className='w-full text-left flex justify-between items-center'
               onClick={() => { setIsEditing(!isEditing) }}
             >
               <p>{title}</p>
