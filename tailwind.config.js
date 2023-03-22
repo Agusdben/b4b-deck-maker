@@ -19,7 +19,7 @@ module.exports = {
         layout: 'auto minmax(640px, 1fr) auto'
       },
       gridTemplateColumns: {
-        'auto-fill': 'repeat(auto-fill, minmax(200px, 1fr))'
+        'auto-fill': 'repeat(auto-fill, minmax(230px, 1fr))'
       },
       transitionProperty: {
         left: 'left',

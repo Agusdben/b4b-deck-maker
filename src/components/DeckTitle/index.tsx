@@ -33,14 +33,14 @@ const DeckTitle: React.FC<Props> = ({ title, onUpdateTitle }) => {
   }
 
   return (
-    <div className='border-1 p-2 gap-2 border-primary flex  items-center '>
+    <div className='border-1 p-2 gap-2 border-primary bg-black flex  items-center '>
       <NoteIcon fill={colors.primary}/>
       {
         isEditing
           ? (
           <form className='w-full flex justify-between ' onSubmit={handleOnSubmitTitle}>
             <input
-              className='bg-transparent outline-none'
+              className='bg-black-800 outline-none flex-1'
               type="text"
               value={titleValue}
               onChange={handleOnTitleChange}

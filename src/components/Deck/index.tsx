@@ -14,12 +14,12 @@ const Deck: React.FC<Props> = ({ deck, onDelete }) => {
   const modalDeleteDeck = useModal({ title: 'Delete deck' })
 
   return (
-    <div key={deck.id} className='flex gap-1 px-4 py-2 group border-1 transition-colors border-primary hover:bg-primary'>
+    <div key={deck.id} className='flex gap-1 p-2 bg-black rounded-md hover:shadow-md hover:shadow-primary transition-shadow'>
       <Link href={`/decks/${deck.id}`} className='flex-1 flex flex-col gap-2 overflow-hidden'>
         <p className='text-ellipsis whitespace-nowrap overflow-hidden text-xl'>{deck.title}</p>
         <p>Cards: {deck.total_cards}/{MAX_CARDS}</p>
       </Link>
-      <button onClick={modalDeleteDeck.handleModal} className='group-hover:brightness-0'>
+      <button onClick={modalDeleteDeck.handleModal}>
         <TrashBinIcon fill={colors.primary}/>
       </button>
       <ModalDelete

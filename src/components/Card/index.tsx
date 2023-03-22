@@ -7,8 +7,8 @@ interface Props {
 }
 const Card: React.FC<Props> = ({ card }) => {
   return (
-    <div className='w-full max-w-[200px] mx-auto group'>
-      <div className='flex items-start justify-between py-1'>
+    <div className='w-full max-w-[250px] mx-auto group bg-black p-2 rounded-md'>
+      <div className='flex items-start justify-between'>
         <div>
           <h3>{card.title}</h3>
           <p className='text-gray'>{card.type}</p>
@@ -17,7 +17,7 @@ const Card: React.FC<Props> = ({ card }) => {
       </div>
       <div className='relative'>
         <Image src={card.img} alt={`Back 4 blood card ${card.title}`} width={330} height={500}/>
-        <p className='absolute bottom-0 p-2 text-gray font-bold text-left group-hover:bg-black/50'>{card.description}</p>
+        <p className='absolute bottom-0 text-gray font-bold text-left group-hover:bg-black/50'>{card.description}</p>
       </div>
     </div>
   )

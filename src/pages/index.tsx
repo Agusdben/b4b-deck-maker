@@ -31,16 +31,16 @@ const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
                 onCardTypeChange={handleCardTypeSelected}
               />
             </header>
-            <div className='overflow-auto grid grid-cols-auto-fill gap-x-4 gap-y-8'>
+            <div className='overflow-auto grid grid-cols-auto-fill gap-x-4 gap-y-8 p-2 bg-black-800'>
               {filteredCards.length === 0 && <p className=''>No cards found</p>}
               {
                 filteredCards.map(c => <Card key={c.id} card={c} />)
               }
             </div>
           </article>
-          <aside className='w-full h-full flex flex-col gap-4 md:max-w-[230px]'>
-            <h3 className='text-xl text-center bg-primary px-4 py-2 font-bold'>My decks ({decks.length}/{MAX_DECKS})</h3>
-            <div className={`w-full flex-1 overflow-auto flex flex-col gap-4 bg-black-800 p-2 ${loading ? 'animate-pulse' : 'bg-transparent'}`}>
+          <aside className='w-full h-full flex flex-col gap-4 md:max-w-[250px] bg-black-800'>
+            <h3 className='text-xl text-center bg-primary text-black px-4 py-2 font-bold'>My decks</h3>
+            <div className={`w-full flex-1 overflow-auto flex flex-col gap-4 p-2 ${loading ? 'animate-pulse' : 'bg-transparent'}`}>
               {
                 decks.length === 0 && !loading
                   ? <p className='m-auto text-center'>You don&apos;t have any deck</p>
@@ -53,7 +53,11 @@ const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
                     )
               }
             </div>
-            <footer className='w-full'>
+            <footer className='w-full flex items-stretch gap-2 bg-black'>
+              <div className='flex items-center flex-col p-2 font-bold ml-auto'>
+                <p className='text-xl'>{decks.length}/{MAX_DECKS}</p>
+                <small>Decks</small>
+              </div>
               <Button solid type='button' onClick={handleCreateNewDeck}>New deck</Button>
             </footer>
           </aside>

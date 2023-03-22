@@ -29,7 +29,7 @@ const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
   return (
     <AuthRoute>
       <AppLayout>
-        <section className='w-full h-full flex flex-col md:flex-row md:gap-4'>
+        <section className='w-full h-full flex flex-col md:flex-row md:gap-2'>
           <article className='flex flex-col overflow-hidden gap-4 md:flex-1'>
             <header>
               <FilterCards
@@ -38,7 +38,7 @@ const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
                 onCardTypeChange={handleCardTypeSelected}
               />
             </header>
-            <div className='overflow-auto flex-1 grid grid-cols-auto-fill gap-x-4 gap-y-8'>
+            <div className='overflow-auto flex-1 grid grid-cols-auto-fill gap-x-4 gap-y-8 bg-black-800 p-2'>
               {filteredCards.length === 0 && <p className=''>No cards found</p>}
               {
                 filteredCards.map(c => {
@@ -48,10 +48,11 @@ const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
                     <button
                       disabled={isInQueue}
                       onClick={() => { isAdded ? handleRemoveCardFromDeck(c) : handleAddCardToDeck(c) }}
-                      key={c.id} className={`border-2 h-fit max-w-[210px] mx-auto text-left px-2 hover:border-gray rounded-md 
+                      key={c.id} className={`border-2 h-fit max-w-[200px] bg-black md:max-w-full mx-auto text-left hover:border-gray rounded-md 
                       ${isAdded ? 'border-primary' : 'border-transparent'} 
                       disabled:opacity-50
-                      `}>
+                      `}
+                    >
                       <Card card={c} />
                     </button>
                   )
@@ -59,7 +60,7 @@ const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
               }
             </div>
           </article>
-          <aside className='flex md:h-full flex-col mt-auto'>
+          <aside className='flex md:h-full flex-col mt-auto bg-black-800'>
             <DeckTitle onUpdateTitle={handleUpdateTitle} title={deck.title}/>
             <DeckCards cards={deckCards} onRemoveCard={handleRemoveCardFromDeck} queue={cardsInQueue}/>
           </aside>

@@ -7,7 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<Props> = ({ children, solid, ...props }) => {
   const className = solid === true
-    ? 'bg-primary text-white hover:bg-transparent'
+    ? 'bg-primary text-black hover:bg-transparent hover:text-white'
     : 'hover:bg-primary'
   return (
     <button

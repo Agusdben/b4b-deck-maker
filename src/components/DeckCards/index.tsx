@@ -42,7 +42,7 @@ const DeckCards: React.FC<Props> = ({ cards, queue, onRemoveCard }) => {
 
   return (
     <div className='flex h-full flex-col gap-2 overflow-hidden'>
-      <div className='flex w-full overflow-y-auto md:overflow-x-hidden gap-4 py-2 md:flex-1 md:flex-col'>
+      <div className='flex w-full overflow-y-auto md:overflow-x-hidden gap-4 p-2 md:flex-1 md:flex-col'>
         {
           currentCards.map((c, index) => {
             const cardNumber = index + 1 < 10 ? `0${index + 1}` : index + 1
@@ -53,17 +53,17 @@ const DeckCards: React.FC<Props> = ({ cards, queue, onRemoveCard }) => {
                 disabled={isInQueue}
                 key={c !== null ? c.id : index}
                 onClick={() => { handleOnRemoveCard(c) }}
-                className='text-left flex items-center border-2 border-transparent hover:border-gray bg-black p-1 disabled:opacity-50'
+                className='text-left flex items-center border-2 rounded-md border-transparent hover:border-gray bg-black p-1 disabled:opacity-50'
               >
                 <div
                   style={{ animationDuration: `${animationDuration}ms` }}
                   className='relative z-10 animate-to-left flex gap-2 items-center w-[230px]'
                 >
                   {c === null
-                    ? (<>
+                    ? (<div className='w-full flex gap-2 items-center justify-center md:justify-start'>
                       <p>{cardNumber}</p>
                       <p>Empty</p>
-                    </>)
+                    </div>)
                     : (
                     <>
                       <div className={`m-auto overflow-hidden transition-max-height duration-500 ${showFullCards ? 'max-h-96' : 'max-h-0 absolute invisible'}`}>
@@ -84,13 +84,19 @@ const DeckCards: React.FC<Props> = ({ cards, queue, onRemoveCard }) => {
           })
         }
       </div>
-      <label className={`flex items-center cursor-pointer w-fit border-1 m-auto gap-2 border-primary rounded-full px-2 ${showFullCards ? 'bg-primary' : 'bg-transparent'}`}>
-        <div className={`w-4 ${showFullCards ? 'brightness-0' : ''}`}>
-          {showFullCards ? <OpenEyeIcon fill={colors.primary} /> : <EyeSlashIcon fill={colors.primary}/>}
+      <div className='md:p-2 bg-black flex items-center justify-between'>
+        <div className='flex items-center flex-col p-2 font-bold'>
+          <p className='text-xl'>{cards.length}/{MAX_CARDS}</p>
+          <small>Cards</small>
         </div>
-        <p className=''>Show full cards</p>
-        <input type='checkbox' className='hidden' checked={showFullCards} onChange={handleShowFullCardsChange}/>
-      </label>
+        <label className={`flex items-center cursor-pointer w-fit border-1 gap-2 border-primary transition-colors rounded-full hover:bg-primary group px-2 ${showFullCards ? 'bg-primary' : 'bg-transparent'}`}>
+          <div className={`w-4 group-hover:brightness-0 ${showFullCards ? 'brightness-0' : ''}`}>
+            {showFullCards ? <OpenEyeIcon fill={colors.primary} /> : <EyeSlashIcon fill={colors.primary}/>}
+          </div>
+          <p className=''>Show full cards</p>
+          <input type='checkbox' className='hidden' checked={showFullCards} onChange={handleShowFullCardsChange}/>
+        </label>
+      </div>
     </div>
   )
 }
