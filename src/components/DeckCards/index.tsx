@@ -41,17 +41,21 @@ const DeckCards: React.FC<Props> = ({ cards, onRemoveCard }) => {
 
   return (
     <div className='flex h-full flex-col gap-2 overflow-hidden'>
-      <div className='flex w-full overflow-auto gap-4 py-2 md:flex-1 md:flex-col'>
+      <div className='flex w-full overflow-y-auto overflow-x-hidden gap-4 py-2 md:flex-1 md:flex-col'>
         {
           currentCards.map((c, index) => {
             const cardNumber = index + 1 < 10 ? `0${index + 1}` : index + 1
+            const animationDuration = Math.min(Math.max(Number(cardNumber) * 70), 200)
             return (
               <button
-                key={index}
+                key={c !== null ? c.id : index}
                 onClick={() => { handleOnRemoveCard(c) }}
                 className='text-left flex items-center border-2 border-transparent hover:border-gray bg-black p-1'
               >
-                <div className='relative z-10 flex items-center gap-2 w-[230px] '>
+                <div
+                  style={{ animationDuration: `${animationDuration}ms` }}
+                  className='relative z-10 animate-to-left flex gap-2 items-center w-[230px]'
+                >
                   {c === null
                     ? (<>
                       <p>{cardNumber}</p>
@@ -59,18 +63,15 @@ const DeckCards: React.FC<Props> = ({ cards, onRemoveCard }) => {
                     </>)
                     : (
                     <>
-                      {showFullCards
-                        ? (
-                          <Card card={c}/>
-                          )
-                        : (
-                          <>
-                            <p>{cardNumber}</p>
-                            <Image className='object-contain' src={c.affinity_img} alt={`Affinity ${c.affinity}`} width={16} height={16} />
-                            <p className=' whitespace-nowrap overflow-hidden text-ellipsis' >{c.title}</p>
-                            <Image src={c.img} alt={`Card ${c.title}`} fill className='object-cover -z-10 opacity-30'/>
-                          </>
-                          )}
+                      <div className={`m-auto overflow-hidden transition-max-height duration-500 ${showFullCards ? 'max-h-96' : 'max-h-0 absolute opacity-0'}`}>
+                        <Card card={c}/>
+                      </div>
+                      <div className={`${showFullCards ? 'hidden' : 'flex'} h-full gap-2 overflow-hidden`}>
+                        <p>{cardNumber}</p>
+                        <Image className='object-contain' src={c.affinity_img} alt={`Affinity ${c.affinity}`} width={16} height={16} />
+                        <p className=' whitespace-nowrap overflow-hidden text-ellipsis' >{c.title}</p>
+                        <Image src={c.img} alt={`Card ${c.title}`} fill className='object-cover -z-10 opacity-30'/>
+                      </div>
                     </>
                       )
                     }
