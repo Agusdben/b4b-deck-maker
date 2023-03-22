@@ -41,7 +41,7 @@ const DeckCards: React.FC<Props> = ({ cards, onRemoveCard }) => {
 
   return (
     <div className='flex h-full flex-col gap-2 overflow-hidden'>
-      <div className='flex w-full overflow-y-auto overflow-x-hidden gap-4 py-2 md:flex-1 md:flex-col'>
+      <div className='flex w-full overflow-y-auto md:overflow-x-hidden gap-4 py-2 md:flex-1 md:flex-col'>
         {
           currentCards.map((c, index) => {
             const cardNumber = index + 1 < 10 ? `0${index + 1}` : index + 1
@@ -63,7 +63,7 @@ const DeckCards: React.FC<Props> = ({ cards, onRemoveCard }) => {
                     </>)
                     : (
                     <>
-                      <div className={`m-auto overflow-hidden transition-max-height duration-500 ${showFullCards ? 'max-h-96' : 'max-h-0 absolute opacity-0'}`}>
+                      <div className={`m-auto overflow-hidden transition-max-height duration-500 ${showFullCards ? 'max-h-96' : 'max-h-0 absolute invisible'}`}>
                         <Card card={c}/>
                       </div>
                       <div className={`${showFullCards ? 'hidden' : 'flex'} h-full gap-2 overflow-hidden`}>
