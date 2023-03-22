@@ -48,8 +48,8 @@ const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
                     <button
                       disabled={isInQueue}
                       onClick={() => { isAdded ? handleRemoveCardFromDeck(c) : handleAddCardToDeck(c) }}
-                      key={c.id} className={`border-2 h-fit max-w-[200px] bg-black md:max-w-full mx-auto text-left hover:border-gray rounded-md 
-                      ${isAdded ? 'border-primary' : 'border-transparent'} 
+                      key={c.id} className={`border-2 h-fit max-w-[200px] bg-black md:max-w-full mx-auto text-left rounded-md 
+                      ${isAdded ? 'border-primary' : 'border-transparent hover:border-gray'} 
                       disabled:opacity-50
                       `}
                     >
