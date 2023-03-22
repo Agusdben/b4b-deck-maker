@@ -1,8 +1,10 @@
 import useUser from '@/hooks/useUser'
 import { colors } from '@/styles/theme'
+import Link from 'next/link'
 import { useState } from 'react'
 import AppAside from '../AppAside'
 import BarsIcon from '../Icons/BarsIcon'
+import UserProfile from '../UserCard'
 
 const AppHeader: React.FC = () => {
   const { user } = useUser()
@@ -27,7 +29,16 @@ const AppHeader: React.FC = () => {
           </>
         )
       }
-     <h1 className='p-2'>B4B</h1>
+     <h1 className='p-2 text-xl'>
+      <Link href='/'>B4B Deck Maker</Link>
+     </h1>
+     {
+      user !== null && (
+        <div className='ml-auto hidden md:block'>
+          <UserProfile />
+        </div>
+      )
+     }
     </header>
   )
 }
