@@ -75,7 +75,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const cards: CardType[] = await getCards()
   const cookieString = context.req.headers.cookie
 
-  if (cookieString === undefined || deckId === undefined) {
+  if (deckId === undefined) {
+    return {
+      notFound: true
+    }
+  }
+
+  if (cookieString === undefined) {
     return {
       redirect: {
         destination: '/login',
@@ -99,15 +105,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-  const deckCards = await getCardsByDeckId({ id: deckId, token: cookies.TOKEN })
+  try {
+    const deckCards = await getCardsByDeckId({ id: deckId, token: cookies.TOKEN })
 
-  const deck = await getOneDeck({ id: deckId, token: cookies.TOKEN })
+    const deck = await getOneDeck({ id: deckId, token: cookies.TOKEN })
 
-  return {
-    props: {
-      cards,
-      propDeck: deck,
-      propDeckCards: deckCards
+    return {
+      props: {
+        cards,
+        propDeck: deck,
+        propDeckCards: deckCards
+      }
+    }
+  } catch (error) {
+    return {
+      notFound: true
     }
   }
 }
