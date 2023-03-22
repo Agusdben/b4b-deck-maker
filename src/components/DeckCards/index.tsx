@@ -89,11 +89,11 @@ const DeckCards: React.FC<Props> = ({ cards, queue, onRemoveCard }) => {
           <p className='text-xl'>{cards.length}/{MAX_CARDS}</p>
           <small>Cards</small>
         </div>
-        <label className={`flex items-center cursor-pointer w-fit border-1 gap-2 border-primary transition-colors rounded-full hover:bg-primary group px-2 ${showFullCards ? 'bg-primary' : 'bg-transparent'}`}>
-          <div className={`w-4 group-hover:brightness-0 ${showFullCards ? 'brightness-0' : ''}`}>
+        <label className={`flex items-center cursor-pointer w-fit border-1 gap-2 border-primary transition-colors rounded-full px-2 ${showFullCards ? 'bg-primary' : 'bg-transparent'}`}>
+          <div className={`w-4 ${showFullCards ? 'brightness-0' : ''}`}>
             {showFullCards ? <OpenEyeIcon fill={colors.primary} /> : <EyeSlashIcon fill={colors.primary}/>}
           </div>
-          <p className=''>Show full cards</p>
+          <p>Show full cards</p>
           <input type='checkbox' className='hidden' checked={showFullCards} onChange={handleShowFullCardsChange}/>
         </label>
       </div>
