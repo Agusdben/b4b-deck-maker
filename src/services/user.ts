@@ -1,4 +1,5 @@
 import { API_URL } from '@/config/api'
+import { type ApiError } from '@/types/api'
 import { type LoginFormFields } from '@/types/login'
 import { type RegisterFormValues } from '@/types/register'
 import { type User, type UserToken } from '@/types/user'
@@ -56,8 +57,8 @@ export const registerNewUser = async (body: RegisterFormValues): Promise<void> =
   })
     .then(async (res) => {
       if (!res.ok) {
-        const { error } = await res.json()
-        throw new Error(error)
+        const error: ApiError = await res.json()
+        throw new Error(error.message)
       }
     })
     .catch(error => handleErrors(error))

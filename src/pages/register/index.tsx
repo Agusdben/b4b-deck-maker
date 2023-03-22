@@ -8,15 +8,13 @@ const RegisterPage: React.FC = () => {
   return (
     <UnauthenticatedRoute>
       <AppLayout>
-        <div className='w-full h-full flex flex-col items-center justify-center gap-4'>
-          <section className='max-w-xs w-full p-4 flex flex-col items-center justify-center bg-black-700 rounded-md'>
-            <SectionTitle>Register</SectionTitle>
-            <RegisterForm />
-          </section>
-          <section>
-            <Link href={'/login'}>Already have an account?</Link>
-          </section>
-        </div>
+        <section className='flex gap-4 flex-col items-center justify-center w-full max-w-xs p-4 rounded-md bg-black-800'>
+          <SectionTitle>Register</SectionTitle>
+          <RegisterForm />
+        </section>
+        <section>
+          <Link href={'/login'}>Already have an account?</Link>
+        </section>
       </AppLayout>
     </UnauthenticatedRoute>
   )
