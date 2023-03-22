@@ -1,3 +1,4 @@
+import { MAX_DECKS } from '@/constants/decks'
 import { createNewDeck, deleteOneDeck, getDecksByUserId } from '@/services/decks'
 import { type DeckId, type Deck } from '@/types/decks'
 import { useRouter } from 'next/router'
@@ -34,6 +35,11 @@ const useDecks = (): ReturnTypes => {
   const handleCreateNewDeck = (): void => {
     if (user === null) return
     const title = `New deck #${decks.length}`
+
+    if (decks.length === MAX_DECKS) {
+      toast.error('Maximum number of decks reached')
+    }
+
     createNewDeck({ title, token: user.token })
       .then((deck) => {
         router.push(`/decks/${deck.id}`)

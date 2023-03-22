@@ -4,6 +4,7 @@ import Button from '@/components/Button'
 import Card from '@/components/Card'
 import Deck from '@/components/Deck'
 import FilterCards from '@/components/FilterCards'
+import { MAX_DECKS } from '@/constants/decks'
 import useCards from '@/hooks/useCards'
 import useDecks from '@/hooks/useDecks'
 import { getCards } from '@/services/cards'
@@ -38,7 +39,7 @@ const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
             </div>
           </article>
           <aside className='w-full h-full flex flex-col gap-4 md:max-w-[230px]'>
-            <h3 className='text-xl text-center bg-primary px-4 py-2 font-bold'>My decks</h3>
+            <h3 className='text-xl text-center bg-primary px-4 py-2 font-bold'>My decks ({decks.length}/{MAX_DECKS})</h3>
             <div className={`w-full flex-1 overflow-auto flex flex-col gap-4 bg-black-800 p-2 ${loading ? 'animate-pulse' : 'bg-transparent'}`}>
               {
                 decks.length === 0 && !loading
