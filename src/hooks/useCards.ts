@@ -35,7 +35,7 @@ const useCards = ({ cards }: Props): ReturnTypes => {
 
   const filteredCards = useMemo(() => {
     return cards.filter(c => (
-      (c.title.toLowerCase().includes(query.toLowerCase()) || query === '')) &&
+      (c.title.toLowerCase().includes(query.toLowerCase()) || c.description.toLowerCase().includes(query.toLowerCase()) || query === '')) &&
       (c.affinity.toLowerCase() === affinitySelected.toLowerCase() || affinitySelected === AFFINITIES_FILTER.ALL) &&
       (c.type.toLowerCase() === cardTypeSelected.toLowerCase() || cardTypeSelected === TYPES_FILTERS.ALL)
     )
