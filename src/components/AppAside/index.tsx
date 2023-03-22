@@ -12,7 +12,7 @@ interface Props {
 const AppAside: React.FC<Props> = ({ onClose }) => {
   const { logout } = useUser()
   return (
-    <aside className='relative z-30 bg-black-800 max-w-sm mr-auto h-full overflow-auto flex flex-col gap-4 py-2 px-4'>
+    <aside className='relative z-30 bg-black-800 max-w-[300px] mr-auto h-full overflow-auto flex flex-col gap-4 py-2 px-4'>
       <button onClick={onClose} className='self-end p-2 text-2xl hover:brightness-50'>
         <XMarkIcon fill={colors.primary} />
       </button>
