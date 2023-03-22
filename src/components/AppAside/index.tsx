@@ -17,7 +17,7 @@ const AppAside: React.FC<Props> = ({ onClose }) => {
         <XMarkIcon fill={colors.primary} />
       </button>
       <UserProfile />
-      <ul className='flex flex-col gap-4 text-center [&_li]:p-2 hover:[&_li]:text-primary'>
+      <ul className='flex flex-col gap-4 [&_li]:p-2 hover:[&_li]:text-primary'>
         <li>
           <Link className='block' href='/'>My decks</Link>
         </li>
