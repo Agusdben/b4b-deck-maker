@@ -26,17 +26,12 @@ module.exports = {
         'max-height': 'max-height'
       },
       animation: {
-        'to-left': 'to-left 1s linear',
-        expandHeight: 'expandHeight 1s cubic-bezier(0, 1, 0, 1)'
+        'to-left': 'to-left 1s linear'
       },
       keyframes: {
         'to-left': {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0)' }
-        },
-        expandHeight: {
-          '0%': { maxHeight: '0px' },
-          '100%': { maxHeight: 'auto' }
         }
       }
     }
