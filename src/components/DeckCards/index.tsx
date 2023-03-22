@@ -1,6 +1,6 @@
 import { MAX_CARDS } from '@/constants/decks'
 import { colors } from '@/styles/theme'
-import { type Card as CardType } from '@/types/cards'
+import { type CardId, type Card as CardType } from '@/types/cards'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Card from '../Card'
@@ -9,10 +9,11 @@ import OpenEyeIcon from '../Icons/OpenEyeIcon'
 
 interface Props {
   cards: CardType[]
+  queue: CardId[]
   onRemoveCard: (card: CardType) => void
 }
 
-const DeckCards: React.FC<Props> = ({ cards, onRemoveCard }) => {
+const DeckCards: React.FC<Props> = ({ cards, queue, onRemoveCard }) => {
   const [currentCards, setCurrentCards] = useState<Array<CardType | null>>(Array(MAX_CARDS).fill(null))
   const [showFullCards, setShowFullCards] = useState(false)
 
@@ -45,12 +46,14 @@ const DeckCards: React.FC<Props> = ({ cards, onRemoveCard }) => {
         {
           currentCards.map((c, index) => {
             const cardNumber = index + 1 < 10 ? `0${index + 1}` : index + 1
+            const isInQueue = queue.some(q => q.id === c?.id)
             const animationDuration = Math.min(Math.max(Number(cardNumber) * 70), 200)
             return (
               <button
+                disabled={isInQueue}
                 key={c !== null ? c.id : index}
                 onClick={() => { handleOnRemoveCard(c) }}
-                className='text-left flex items-center border-2 border-transparent hover:border-gray bg-black p-1'
+                className='text-left flex items-center border-2 border-transparent hover:border-gray bg-black p-1 disabled:opacity-50'
               >
                 <div
                   style={{ animationDuration: `${animationDuration}ms` }}

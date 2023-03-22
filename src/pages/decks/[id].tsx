@@ -23,7 +23,9 @@ interface Props {
 const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
   const { filteredCards, handleQuery, handleAffinitySelected, handleCardTypeSelected } = useCards({ cards })
   const { deck, deckCards, cardsInQueue, handleAddCardToDeck, handleRemoveCardFromDeck, handleUpdateTitle } = useDeck({ initialDeck: propDeck, initialDeckCards: propDeckCards })
-
+  const getIfCardIsInQueue = (c: CardType): boolean => {
+    return cardsInQueue.some(cardQueue => cardQueue.id === c.id)
+  }
   return (
     <AuthRoute>
       <AppLayout>
@@ -41,12 +43,15 @@ const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
               {
                 filteredCards.map(c => {
                   const isAdded = deckCards.some(dc => dc.id === c.id)
-                  const isInQueue = cardsInQueue.some(cardQueue => cardQueue.id === c.id)
+                  const isInQueue = getIfCardIsInQueue(c)
                   return (
                     <button
                       disabled={isInQueue}
                       onClick={() => { isAdded ? handleRemoveCardFromDeck(c) : handleAddCardToDeck(c) }}
-                      key={c.id} className={`border-2 h-fit max-w-[210px] mx-auto text-left px-2 hover:border-gray rounded-md ${isAdded ? 'border-primary' : 'border-transparent'} `}>
+                      key={c.id} className={`border-2 h-fit max-w-[210px] mx-auto text-left px-2 hover:border-gray rounded-md 
+                      ${isAdded ? 'border-primary' : 'border-transparent'} 
+                      disabled:opacity-50
+                      `}>
                       <Card card={c} />
                     </button>
                   )
@@ -56,7 +61,7 @@ const DeckPage: React.FC<Props> = ({ cards, propDeck, propDeckCards }) => {
           </article>
           <aside className='flex md:h-full flex-col mt-auto'>
             <DeckTitle onUpdateTitle={handleUpdateTitle} title={deck.title}/>
-            <DeckCards cards={deckCards} onRemoveCard={handleRemoveCardFromDeck}/>
+            <DeckCards cards={deckCards} onRemoveCard={handleRemoveCardFromDeck} queue={cardsInQueue}/>
           </aside>
         </section>
       </AppLayout>
