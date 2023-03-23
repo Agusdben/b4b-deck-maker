@@ -3,7 +3,7 @@ import { type ApiError } from '@/types/api'
 import { type Card } from '@/types/cards'
 import { type AddAndRemoveCardDeck, type GetCardsByDeckIdFn } from '@/types/decks'
 
-const BASE_URL = `${API_URL}/decks_cards`
+const BASE_URL = `${API_URL ?? ''}/decks_cards`
 
 export const getCardsByDeckId: GetCardsByDeckIdFn = async ({ id, token }) => {
   const URL = `${BASE_URL}/${id}`

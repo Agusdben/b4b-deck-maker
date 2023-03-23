@@ -3,7 +3,7 @@ import { API_URL } from '../config/api'
 import { type GetOneDeckFn, type CreateNewDeckFn, type Deck, type UpdateDeckFn, type DeleteOneDeckFn } from '@/types/decks'
 import { type ApiError } from '@/types/api'
 
-const BASE_URL = `${API_URL}/decks`
+const BASE_URL = `${API_URL ?? ''}/decks`
 
 export const getDecksByUserId = async ({ id, token }: UserIdAndToken): Promise<Deck[]> => {
   const URL = `${BASE_URL}/user/${id}`

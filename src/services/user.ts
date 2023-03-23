@@ -5,7 +5,7 @@ import { type RegisterFormValues } from '@/types/register'
 import { type User, type UserToken } from '@/types/user'
 import { handleErrors } from './utilities'
 
-const BASE_URL = `${API_URL}/users`
+const BASE_URL = `${API_URL ?? ''}/users`
 
 export const loginWithToken = async ({ token }: UserToken): Promise<User> => {
   return await fetch(
