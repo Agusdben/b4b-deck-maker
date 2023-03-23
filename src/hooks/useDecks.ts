@@ -9,6 +9,7 @@ import useUser from './useUser'
 interface ReturnTypes {
   decks: Deck[]
   loading: boolean
+  creatingDeck: boolean
   handleCreateNewDeck: () => void
   handleDeleteDeck: ({ id }: DeckId) => void
 }
@@ -16,6 +17,7 @@ interface ReturnTypes {
 const useDecks = (): ReturnTypes => {
   const { user } = useUser()
   const [loading, setLoading] = useState(true)
+  const [creatingDeck, setCreatingDeck] = useState(false)
   const [decks, setDecks] = useState<Deck[]>([])
   const router = useRouter()
 
@@ -40,6 +42,8 @@ const useDecks = (): ReturnTypes => {
       toast.error('Maximum number of decks reached')
     }
 
+    setCreatingDeck(true)
+
     createNewDeck({ title, token: user.token })
       .then((deck) => {
         router.push(`/decks/${deck.id}`)
@@ -50,6 +54,7 @@ const useDecks = (): ReturnTypes => {
       .catch(error => {
         console.error(error.message)
       })
+      .finally(() => { setCreatingDeck(false) })
   }
 
   const handleDeleteDeck = ({ id }: DeckId): void => {
@@ -73,6 +78,7 @@ const useDecks = (): ReturnTypes => {
   return {
     decks,
     loading,
+    creatingDeck,
     handleCreateNewDeck,
     handleDeleteDeck
   }

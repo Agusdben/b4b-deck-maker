@@ -72,7 +72,7 @@ export const createNewDeck: CreateNewDeckFn = async ({ title, token }) => {
 
 export const deleteOneDeck: DeleteOneDeckFn = async ({ id, token }) => {
   const URL = `${BASE_URL}/${id}`
-  console.log(URL)
+
   await fetch(URL, {
     method: 'DELETE',
     headers: {

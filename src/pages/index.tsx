@@ -17,7 +17,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
   const { filteredCards, handleQuery, handleAffinitySelected, handleCardTypeSelected } = useCards({ cards })
-  const { decks, loading, handleCreateNewDeck, handleDeleteDeck } = useDecks()
+  const { decks, loading, creatingDeck, handleCreateNewDeck, handleDeleteDeck } = useDecks()
 
   return (
     <AuthRoute>
@@ -58,7 +58,7 @@ const Home: React.FC<Props> = ({ cards = [] }): JSX.Element => {
                 <p className='text-xl'>{decks.length}/{MAX_DECKS}</p>
                 <small>Decks</small>
               </div>
-              <Button solid type='button' onClick={handleCreateNewDeck}>New deck</Button>
+              <Button solid type='button' onClick={handleCreateNewDeck}>{creatingDeck ? 'Creating...' : 'New deck'}</Button>
             </footer>
           </aside>
         </section>
