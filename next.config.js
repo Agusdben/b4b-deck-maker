@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', '192.168.0.210', 'https://b4b-deck-maker.onrender.com']
+    domains: ['localhost', '192.168.0.210', 'b4b-deck-maker.onrender.com']
   }
 }
 
